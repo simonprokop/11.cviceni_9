@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Vyuka" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\simon\source\repos\10.cviceni\Vyuka.mdf;Integrated Security=True;Connect Timeout=30" SettingsObjectName="_11.cviceni_9.Properties.Settings" SettingsPropertyName="VyukaConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Subjects" Member="Subjects">
+    <Type Name="Subject">
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Shortcut" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Subject_Connection" Member="Connections" ThisKey="Shortcut" OtherKey="Shortcuts" Type="Connection" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Connections" Member="Connections">
+    <Type Name="Connection">
+      <Column Name="Student" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IDS" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Shortcuts" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="Subject_Connection" Member="Subject" ThisKey="Shortcuts" OtherKey="Shortcut" Type="Subject" IsForeignKey="true" />
+      <Association Name="Student_Connection" Member="Student1" ThisKey="IDS" OtherKey="ID" Type="Student" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Evaluation" Member="Evaluations">
+    <Type Name="Evaluation">
+      <Column Name="IDStudent" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SubjectShortcut" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DateOfRate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Rate" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Students" Member="Students">
+    <Type Name="Student">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Birthday" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="Student_Connection" Member="Connections" ThisKey="ID" OtherKey="IDS" Type="Connection" />
+    </Type>
+  </Table>
+</Database>
